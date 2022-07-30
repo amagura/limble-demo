@@ -3,7 +3,7 @@ resource "aws_db_instance" "default" {
   engine                = "mysql"
   engine_version        = "5.7"
   instance_class        = "db.t3.small"
-  name                  = "demodb"
+  db_name                  = "demodb"
   username              = "lidem"
   password              = "Lithuanian UnknowingsHesit ance sAmarium"
   parameter_group_name  = "default.mysql5.7"
