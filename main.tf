@@ -9,7 +9,7 @@ provider "kubernetes" {
 }
 
 provider "aws" {
-  region = var.region
+  region = "us-east-1"
 }
 
 data "aws_availability_zones" "available" {}
