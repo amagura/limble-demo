@@ -8,5 +8,5 @@ resource "aws_db_instance" "default" {
   password              = "Lithuanian UnknowingsHesit ance sAmarium"
   parameter_group_name  = "default.mysql5.7"
   skip_final_snapshot   = true
-  db_subnet_group_name  = module.vpc.private_subnets
+  db_subnet_group_name  = module.vpc.private_subnets[0]
 }
