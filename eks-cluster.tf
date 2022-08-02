@@ -9,7 +9,7 @@ module "eks" {
   subnet_ids = module.vpc.private_subnets
 
   eks_managed_node_group_defaults = {
-    ami_type = "AL2_x86_64"
+    ami_type = "BOTTLEROCKET_x86_64"
 
     attach_cluster_primary_security_group = true
 
@@ -19,7 +19,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "wp-demo-node-group-1"
+      name = "wp-node-group-1"
 
       instance_types = ["t3.small"]
 
@@ -32,7 +32,7 @@ module "eks" {
       EOT
 
       vpc_security_group_ids = [
-        aws_security_group.wp_demo_group.id
+        aws_security_group.wp_sec_grp.id
       ]
     }
   }
