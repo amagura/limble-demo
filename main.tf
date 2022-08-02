@@ -22,3 +22,7 @@ resource "random_string" "suffix" {
   length  = 8
   special = false
 }
+
+# module "subnets" {
+#   vpc_id  = "${module.vpc.vpc_id}"
+#   vpc_cidr_block = "${
