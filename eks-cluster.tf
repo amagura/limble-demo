@@ -27,9 +27,9 @@ module "eks" {
       max_size     = 3
       desired_size = 1
 
-      pre_bootstrap_user_data = <<-EOT
-      echo 'foo bar'
-      EOT
+      # pre_bootstrap_user_data = <<-EOT
+      # echo 'foo bar'
+      # EOT
 
       vpc_security_group_ids = [
         aws_security_group.wp_sec_grp.id
