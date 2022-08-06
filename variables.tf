@@ -19,5 +19,5 @@ variable "db_user" {
 variable "db_pass" {
   description = "Project database password"
   type        = string
-  default     = "Lithuanian UnknowingsHesit ance sAmarium"
+  default     = "Lithuanian_UnknowingsHesit_ance_sAmarium"
 }
