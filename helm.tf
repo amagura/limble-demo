@@ -7,20 +7,20 @@ provider "helm" {
 resource "helm_release" "prometheus" {
   name       = "prometheus"
   repository = "https://prometheus-community.github.io/helm-charts/"
-  chart      = "prometheus-community/prometheus"
+  chart      = "prometheus"
   namespace  = "watcher"
 }
 
 resource "helm_release" "alert-manager" {
   name        = "alert-manager"
   repository  = "https://prometheus-community.github.io/helm-charts/"
-  chart       = "prometheus-community/alert-manager"
+  chart       = "alert-manager"
   namespace   = "watcher"
 }
 
 resource "helm_release" "nginx-ingress" {
   name        = "nginx-ingress"
-  repository  = "https://kubernetes.github.io/"
+  repository  = "https://kubernetes.github.io/ingress-nginx/"
   chart       = "ingress-nginx"
   namespace   = "nginx-ingress"
 
@@ -62,7 +62,7 @@ resource "helm_release" "npd" {
 resource "helm_release" "grafana" {
   name        = "grafana"
   repository  = "https://grafana.github.io/helm-charts/"
-  chart       = "grafana/grafana"
+  chart       = "grafana"
   namespace   = "watcher"
 
 
