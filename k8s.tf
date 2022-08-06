@@ -1,9 +1,15 @@
 resource "kubernetes_namespace" "watcher" {
-  metadata {}
+  metadata {
+    name = "watcher"
+  }
 }
 resource "kubernetes_namespace" "nginx-ingress" {
-  metadata {}
+  metadata {
+    name = "nginx-ingress"
+  }
 }
 resource "kubernetes_namespace" "cert-manager" {
-  metadata {}
+  metadata {
+    name = "cert-manager"
+  }
 }
