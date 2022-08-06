@@ -1,6 +1,6 @@
-resource "aws_security_group" "wp_sec_grp" {
-  name_prefix = "wp"
-  description = "wp security group"
+resource "aws_security_group" "k8s" {
+  name        = "k8s"
+  description = "k8s security group"
   vpc_id      = module.vpc.vpc_id
 
   ingress {
@@ -14,10 +14,10 @@ resource "aws_security_group" "wp_sec_grp" {
   }
 }
 
-resource "aws_security_group" "sql_sec_grp" {
-  name        = "sql"
-  description = "sql security group"
-  vpc_id      = "${module.vpc.vpc_id}"
+resource "aws_security_group" "rds" {
+  name        = "rds"
+  description = "rds security group"
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     from_port   = 5432

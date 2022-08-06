@@ -32,7 +32,7 @@ module "eks" {
       # EOT
 
       vpc_security_group_ids = [
-        aws_security_group.wp_sec_grp.id
+        aws_security_group.k8s.id
       ]
     }
   }
