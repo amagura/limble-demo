@@ -68,10 +68,10 @@ resource "helm_release" "grafana" {
   chart       = "grafana"
   namespace   = "watcher"
 
-  set {
-    name  = "serviceMonitor.enabled"
-    value = true
-  }
+  # set {
+  #   name  = "serviceMonitor.enabled"
+  #   value = true
+  # }
 }
 
 
