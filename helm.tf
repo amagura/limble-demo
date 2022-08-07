@@ -44,7 +44,16 @@ resource "helm_release" "cert-manager" {
   chart       = "cert-manager"
   version     = "v1.9.1"
   namespace   = "cert-manager"
-  values      = [file("values/cm.yml")]
+  # values      = [file("values/cm.yml")]
+
+  set {
+    name  = "prometheus.enabled"
+    value = true
+  }
+  set {
+    name  = "installCRDS"
+    value = true
+  }
 }
 
 resource "helm_release" "npd" {
@@ -64,7 +73,6 @@ resource "helm_release" "grafana" {
   repository  = "https://grafana.github.io/helm-charts/"
   chart       = "grafana"
   namespace   = "watcher"
-
 
   set {
     name  = "serviceMonitor.enabled"
