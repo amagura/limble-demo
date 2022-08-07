@@ -20,6 +20,6 @@ provider "kubectl" {
   config_path            = "~/.kube/config"
 }
 
-resource "kubectl_manifest" "certissuer" {
-  yaml_body = file("certissuer.yaml")
-}
+# resource "kubectl_manifest" "certissuer" {
+#   yaml_body = file("certissuer.yaml")
+# }
