@@ -5,12 +5,12 @@ resource "helm_release" "prometheus" {
   namespace  = "watcher"
 }
 
-resource "helm_release" "alert-manager" {
-  name        = "alert-manager"
-  repository  = "https://prometheus-community.github.io/helm-charts/"
-  chart       = "alert-manager"
-  namespace   = "watcher"
-}
+# resource "helm_release" "alert-manager" {
+#   name        = "alert-manager"
+#   repository  = "https://prometheus-community.github.io/helm-charts/"
+#   chart       = "alert-manager"
+#   namespace   = "watcher"
+# }
 
 resource "helm_release" "nginx-ingress" {
   name        = "nginx-ingress"
