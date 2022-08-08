@@ -14,11 +14,6 @@ resource "kubernetes_namespace" "cert-manager" {
   }
 }
 
-provider "kubectl" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  config_path            = "~/.kube/config"
-}
 
 # resource "kubectl_manifest" "certissuer" {
 #   yaml_body = file("certissuer.yaml")
