@@ -180,8 +180,8 @@ helm install prometheus prometheus-community/prometheus --namespace watcher --cr
 helm install alert-manager prometheus-community/alertmanager --namespace watcher || abort 'failed to install alert-manager'
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --create-namespace \
   --set controller.metrics.enabled=true \
-  --set controller.metrics.serviceMonitor.enabled=true \
   || abort 'failed to deploy ingress'
+  # --set controller.metrics.serviceMonitor.enabled=true \
   # --set controller.config.proxy-body-size=301m \
   # --set controller.service.loadBalancerIP=$ipaddr \
 # kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.9.1/cert-manager.crds.yaml
