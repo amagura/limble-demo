@@ -190,8 +190,8 @@ for ((jdx=0; jdx < ${#repos[@]}; ++jdx++)); do
     'prom*') prgm="prometheus"; ns="watcher"; extra="helm install alert-manager $repo --namespace $ns";;
     'ing*') prgm="ingress-nginx"; ns="ingress"; opts+=("controller.metrics.enabled=true"); opts+=("controller.metrics.serviceMonitor.enabled=true");;
   esac
+  $extra || abort "failed to install extra: $(echo $extra | awk '{printf $3}')"
   helm install $prgm $repo/$prgm --namespace "$ns" $(echo ${opts[@]} | sed 's/ / --set /g; s/^/--set /') || abort "failed to install $prgm"
-  $extra || abort "failed to install extra: $(echo $extra | awk '{printf $3}'"
 done
 
 chcontext
