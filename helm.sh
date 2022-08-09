@@ -162,6 +162,11 @@ repos=(
   https://grafana.github.io/helm-charts
   grafana
 )
+declare -A vers
+vers[cert]="--version v1.9.1"
+vers[prom]=
+vers[nginx]=
+vers[graf]=
 
 for ((idx=0; idx < ${#repos[@]}; ++idx)); do
   helm repo add ${repos[$(($idx + 1))]} ${repos[$idx]}
@@ -174,14 +179,29 @@ helm repo update
 # ipid=$(jq -r '.AllocationId' eip.txt)
 # ipaddr=$(jq -r '.PublicIp' eip.txt)
 
+for ((jdx=0; jdx < ${#repos[@]}; ++jdx++)); do
+  repo=${#repos[$jdx]}
+
+  prgm=
+  ns=
+  opts=()
+  extra=:
+  case $repo in
+    'prom*') prgm="prometheus"; ns="watcher"; extra="helm install alert-manager $repo --namespace $ns";;
+    'ing*') prgm="ingress-nginx"; ns="ingress"; opts+=("controller.metrics.enabled=true"); opts+=("controller.metrics.serviceMonitor.enabled=true");;
+  esac
+  helm install $prgm $repo/$prgm --namespace "$ns" $(echo ${opts[@]} | sed 's/ / --set /g; s/^/--set /') || abort "failed to install $prgm"
+  $extra || abort "failed to install extra: $(echo $extra | awk '{printf $3}'"
+done
+
 chcontext
 
-helm install prometheus prometheus-community/prometheus --namespace watcher --create-namespace || abort 'failed to install prometheus'
+helm install prometheus prometheus-community/prometheus --namespace watcher --create-namespace ${vers[prom]} || abort 'failed to install prometheus'
 helm install alert-manager prometheus-community/alertmanager --namespace watcher || abort 'failed to install alert-manager'
 
 chcontext
 
-helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --create-namespace \
+helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --create-namespace ${vers[nginx]} \
   --set controller.metrics.enabled=true \
   --set controller.metrics.serviceMonitor.enabled=true \
   || abort 'failed to deploy ingress'
@@ -191,8 +211,8 @@ helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --cre
 
 chcontext
 
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.0/cert-manager.crds.yaml
-helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.7.0 || abort 'failed to deploy cert-manager'
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/${vers[cert]/*n /}/cert-manager.crds.yaml
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace ${vers[cert]} || abort 'failed to deploy cert-manager'
 
 chcontext
 
@@ -201,13 +221,11 @@ helm install node-problem-detector deliveryhero/node-problem-detector --namespac
   || abort 'failed to deploy node-problem-detector'
   # --set metrics.serviceMonitor.enabled=true \
 
-
 chcontext
 
 helm install grafana grafana/grafana --namespace watcher \
   --set serviceMonitor.enabled=true \
   || abort 'failed to deploy grafana'
-
 
 chcontext
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
