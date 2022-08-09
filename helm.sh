@@ -135,7 +135,7 @@ abort()
 
 getcontext()
 {
-  aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name) || abort 'failed to change kubectl context'
+  aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name) || abort 'failed to get kubectl context'
 }
 
 ################################
