@@ -177,7 +177,6 @@ helm repo update
 getcontext
 
 helm install prometheus prometheus-community/prometheus --namespace watcher --create-namespace || abort 'failed to install prometheus'
-helm install prometheus prometheus-community/prometheus --namespace watcher --create-namespace || abort 'failed to install prometheus'
 helm install alert-manager prometheus-community/alertmanager --namespace watcher || abort 'failed to install alert-manager'
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --create-namespace \
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress --create-namespace \
